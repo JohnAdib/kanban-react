@@ -30,7 +30,6 @@ class KanbanBoard extends React.Component {
   }
 
   render() {
-    console.log(this.getData());
     return (
       <BoardTemplate
         data={this.getData()}
