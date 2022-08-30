@@ -6,7 +6,8 @@ Simple implementation of Kanban UI with react
 
 ## Concepts
 
-A Kanban board only has three key components
+A Kanban board only has three key components. If you aren't familiar with Kanban project like Trello, this YouTube video gives a simple explanation
+https://www.youtube.com/watch?v=AyfupeWS0yY&ab_channel=Trello
 
 ### Board
 
@@ -52,9 +53,29 @@ At the template stage, we break our chemistry analogy to get into language that 
 
 Pages are specific instances of templates. Here, placeholder content is replaced with real representative content to give an accurate depiction of what a user will ultimately see.
 
+## Project Requirements
+
+- [ ] A user should be able to add and label columns.
+- [ ] A user should be able to add and edit cards.
+- [ ] A user should be able to move cards between columns - does not need to be drag-and-drop.
+- [ ] Do make sure the available interactions are intuitive. In other words, we will be considering usability.
+- [ ] - Some kind of persistency (LocalStorage or SessionStorage) is encouraged, though not required.
+- [ ] Any additional features find important in README file about why made certain choices.
+
+## Technology constraints
+
+- **Do not use any third-party React components.** All React components must be yours. Create React App is encouraged as a starting point, but you should not use any other React npm packages for the app. We want to see how you work with core JavaScript/Typescript and React features, not necessarily what libraries or packages you know.
+- Don't worry too much about the presentation. This means no particular CSS, fonts, or images are required.This is a coding activity and not a design activity.
+- Feel free to use any utility libraries like Lodash, Ramda, Moment.js, etc
+- **Do not use Redux or similar state management libraries.**
+
+## Roadmap - becoming a real app
+
+...
+
 ## Available Scripts
 
-In the project directory, you can run:
+After Clone a Github repository or download. In the project directory, you can run
 
 ### `npm start`
 
@@ -64,7 +85,7 @@ The page will reload when you make changes. You may also see any lint errors in 
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode. See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in the interactive watch mode. See the section about [running tests](https://create-react-app.dev/docs/running-tests/) for more information.
 
 ### `npm run build`
 
