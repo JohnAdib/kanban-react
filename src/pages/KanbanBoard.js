@@ -3,8 +3,9 @@ import { data } from "./data.js";
 import Storage from "../tools/Storage";
 import BoardTemplate from "../templates/BoardTemplate";
 
-class KanbanBoard extends React.Component {
-  getData() {
+function KanbanBoard (props) {
+
+  function getData() {
     const storage = new Storage();
     const myData = storage.get("boardData");
 
@@ -12,15 +13,15 @@ class KanbanBoard extends React.Component {
       return myData;
     }
 
-    return this.nullData();
+    return nullData();
   }
 
-  nullData() {
-    this.setData(data);
+  function nullData() {
+    setData(data);
     return data;
   }
 
-  setData(data) {
+  function setData(data) {
     if (!data) {
       return;
     }
@@ -29,14 +30,12 @@ class KanbanBoard extends React.Component {
     storage.set("boardData", data);
   }
 
-  render() {
-    return (
-      <BoardTemplate
-        data={this.getData()}
-        onBoardDataChange={(i) => this.setData(i)}
-      />
-    );
-  }
+  return (
+    <BoardTemplate
+      data={getData()}
+      onBoardDataChange={(i) => setData(i)}
+    />
+  );
 }
 
 export default KanbanBoard;
