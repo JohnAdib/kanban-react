@@ -1,3 +1,5 @@
+import React from "react"
+
 function Logo(props) {
   // https://icons.getbootstrap.com/icons/card-checklist/
   // sample logo

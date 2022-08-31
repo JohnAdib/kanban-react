@@ -1,3 +1,4 @@
+import React from "react"
 import Avatar from "../molecules/Avatar";
 import ClickToEdit from "../molecules/ClickToEdit";
 import Brand from "../molecules/Brand";
@@ -5,7 +6,7 @@ import Brand from "../molecules/Brand";
 function BoardHeader(props) {
   const { data } = props;
 
-  let headerClass =
+  const headerClass =
     "flex flex-row flex-nowrap justify-center flex-none gap-2 lg:gap-4 py-1.5 px-1 leading-8 backdrop-blur-md bg-black/20 text-white";
 
   return (

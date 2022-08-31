@@ -1,3 +1,5 @@
+import React from "react"
+
 function IconPlus(props) {
   // https://icons.getbootstrap.com/icons/plus/
   return (

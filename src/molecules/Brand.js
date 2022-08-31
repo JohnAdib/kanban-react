@@ -1,7 +1,8 @@
-import Logo from "./../atoms/Logo";
-import H1 from "./../atoms/H1";
+import React from "react"
+import Logo from "./../atoms/Logo"
+import H1 from "./../atoms/H1"
 
-function Brand(props) {
+function Brand (props) {
   return (
     <a
       target='_blank'
@@ -12,7 +13,7 @@ function Brand(props) {
       <Logo size='32' />
       <H1>{props.children}</H1>
     </a>
-  );
+  )
 }
 
-export default Brand;
+export default Brand

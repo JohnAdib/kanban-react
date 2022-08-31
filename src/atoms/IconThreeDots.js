@@ -1,3 +1,5 @@
+import React from "react"
+
 function IconThreeDots(props) {
   // https://icons.getbootstrap.com/icons/three-dots/
   return (

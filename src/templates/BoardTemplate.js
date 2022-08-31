@@ -36,7 +36,7 @@ class BoardTemplate extends React.Component {
 
   updatePageTitle(newTitle) {
     // if newTitle passed, use it because of state delay updating
-    const myTitle = newTitle ? newTitle : this.state.boardData.title;
+    const myTitle = newTitle || this.state.boardData.title;
     // update page title
     document.title = myTitle + " | " + this.state.boardData.brand;
   }
@@ -48,7 +48,7 @@ class BoardTemplate extends React.Component {
   handleSubmitNewList(event) {
     event.preventDefault();
     const myData = { ...this.state.boardData };
-    let newTitle = this.state.inputAddNewList;
+    const newTitle = this.state.inputAddNewList;
     if (!newTitle) {
       return;
     }
@@ -90,7 +90,7 @@ class BoardTemplate extends React.Component {
   }
 
   render() {
-    let pageStyle =
+    const pageStyle =
       "h-screen overflow-hidden select-none flex flex-col bg-[#0079bf]";
     // bg-[#0079bf] bg-[#00aecc]
 

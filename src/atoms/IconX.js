@@ -1,3 +1,5 @@
+import React from "react"
+
 function IconX(props) {
   // https://icons.getbootstrap.com/icons/x/
   return (

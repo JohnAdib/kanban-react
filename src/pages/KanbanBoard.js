@@ -6,7 +6,7 @@ import BoardTemplate from "../templates/BoardTemplate";
 class KanbanBoard extends React.Component {
   getData() {
     const storage = new Storage();
-    let myData = storage.get("boardData");
+    const myData = storage.get("boardData");
 
     if (myData) {
       return myData;

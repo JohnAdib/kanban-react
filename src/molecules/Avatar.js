@@ -1,6 +1,7 @@
-import Img from "./../atoms/Img";
+import React from "react"
+import Img from "./../atoms/Img"
 
-function Avatar(props) {
+function Avatar (props) {
   return (
     <button href='#' className='block rounded-full'>
       <Img
@@ -9,7 +10,7 @@ function Avatar(props) {
         alt={props.alt}
       />
     </button>
-  );
+  )
 }
 
-export default Avatar;
+export default Avatar

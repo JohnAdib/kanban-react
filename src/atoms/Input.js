@@ -1,5 +1,7 @@
+import React from "react"
+
 function Input(props) {
-  let inputClass =
+  const inputClass =
     "text-black outline-2 outline-blue-600 rounded px-2 " + props.className;
 
   return (
