@@ -1,4 +1,5 @@
 import Avatar from "../molecules/Avatar";
+import ClickToEdit from "../molecules/ClickToEdit";
 import Brand from "../molecules/Brand";
 
 function BoardHeader(props) {
@@ -10,7 +11,11 @@ function BoardHeader(props) {
   return (
     <header className={headerClass}>
       <Brand link={data.brandLink}>{data.brand}</Brand>
-      <h1>site title</h1>
+      <h1>
+        <ClickToEdit value={data.title} onChange={props.onChangeBoardTitle}>
+          {data.title}
+        </ClickToEdit>
+      </h1>
       <div className='grow'></div>
       <Avatar src={data.userAvatar} alt={data.userName}></Avatar>
     </header>
