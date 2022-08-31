@@ -23,7 +23,7 @@ function MoveCard(props) {
 
   let modalClass =
     "fixed inset-0 backdrop-blur-sm bg-black/30 p-2 grid place-items-center h-screen";
-  console.log(isShowModal);
+
   if (isShowModal) {
     // modalClass += " z-10";
   } else {
