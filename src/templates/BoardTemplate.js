@@ -1,5 +1,6 @@
 import React from "react";
 import BoardHeader from "./../organisms/BoardHeader";
+import BoardLists from "./../organisms/BoardLists";
 
 class BoardTemplate extends React.Component {
   constructor(props) {
@@ -46,6 +47,7 @@ class BoardTemplate extends React.Component {
           data={this.state.boardData}
           onChangeBoardTitle={this.handleBoardTitleChange}
         />
+        <BoardLists data={this.state.boardData.lists} />
       </div>
     );
   }
