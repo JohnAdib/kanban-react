@@ -29,7 +29,7 @@ class BoardTemplate extends React.Component {
     const myData = { ...this.state.boardData };
     let newTitle = event.target.value;
     if (!newTitle) {
-      newTitle = "";
+      newTitle = "Board Title";
     }
     myData.title = newTitle;
     this.setState({ boardData: myData });
@@ -93,7 +93,6 @@ class BoardTemplate extends React.Component {
     this.props.onBoardDataChange(myData);
   }
 
-
   handleChangeInputAddNewCard(event) {
     this.setState({ inputAddNewCard: event.target.value });
   }
@@ -108,6 +107,10 @@ class BoardTemplate extends React.Component {
       myData,
       this.state.inputAddNewCard
     );
+    if(!newCardArr)
+    {
+      return;
+    }
 
     myData.lists[listIndex].cards.push(newCardArr);
     // clean input after add
@@ -164,7 +167,9 @@ class BoardTemplate extends React.Component {
     }
     let cardTitle = cardVal;
     // get index of list
-    const myCardId = cardId || parseInt( data.lists.map((x) => x.cards.length).reduce((a, b) => a + b)) + 1;
+    const myCardId = cardId || parseInt(
+          data.lists.map((x) => x.cards.length).reduce((a, b) => a + b)
+        ) + 1;
 
     // extract hashtags
     const tags = cardTitle
@@ -186,10 +191,11 @@ class BoardTemplate extends React.Component {
     return newCardArr;
   }
 
-
   render() {
     const pageStyle =
-      "h-screen overflow-hidden select-none flex flex-col bg-[#0079bf]";
+      "h-screen overflow-hidden select-none flex flex-col bg-[" +
+      this.state.boardData.background +
+      "]";
     // bg-[#0079bf] bg-[#00aecc]
 
     return (
