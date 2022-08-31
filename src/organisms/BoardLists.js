@@ -1,3 +1,4 @@
+import FormAddAfterClick from "./../molecules/FormAddAfterClick";
 import ClickToEdit from "../molecules/ClickToEdit";
 
 function BoardLists(props) {
@@ -42,7 +43,14 @@ function elListTitle(props, listID, listTitle) {
 function elAddNewList(props) {
   return (
     <div className='flex-none grow-0 snap-start shrink-0a relative basis-72'>
-      Add
+      <FormAddAfterClick
+        title='Add another list'
+        placeholder='Enter list title...'
+        btnText='Add List'
+        value={props.inputAddNewList}
+        onChange={props.onChangeInputAddNewList}
+        onSubmit={props.onSubmitNewList}
+      />
     </div>
   );
 }
