@@ -11,12 +11,16 @@ class BoardTemplate extends React.Component {
       inputAddNewCard: ""
     };
 
-    this.handleBoardTitleChange = this.handleBoardTitleChange.bind(this);
-    this.handleChangeInputAddNewList =
-      this.handleChangeInputAddNewList.bind(this);
-    this.handleSubmitNewList = this.handleSubmitNewList.bind(this);
-    this.handleChangeListTitle = this.handleChangeListTitle.bind(this);
-    this.handleArchiveList = this.handleArchiveList.bind(this);
+    this.handleBoardTitleChange      = this.handleBoardTitleChange.bind(this);
+    this.handleChangeInputAddNewList = this.handleChangeInputAddNewList.bind(this);
+    this.handleSubmitNewList         = this.handleSubmitNewList.bind(this);
+    this.handleChangeListTitle       = this.handleChangeListTitle.bind(this);
+    this.handleArchiveList           = this.handleArchiveList.bind(this);
+
+    this.handleChangeInputAddNewCard = this.handleChangeInputAddNewCard.bind(this);
+    this.handleSubmitNewCard         = this.handleSubmitNewCard.bind(this);
+    this.handleChangeCard            = this.handleChangeCard.bind(this);
+    this.handleArchiveCard           = this.handleArchiveCard.bind(this);
 
     this.updatePageTitle();
   }
@@ -89,6 +93,100 @@ class BoardTemplate extends React.Component {
     this.props.onBoardDataChange(myData);
   }
 
+
+  handleChangeInputAddNewCard(event) {
+    this.setState({ inputAddNewCard: event.target.value });
+  }
+
+  handleSubmitNewCard(event) {
+    event.preventDefault();
+    // read parent id to add card
+    const listId = parseInt(event.target.dataset.list);
+    const myData = { ...this.state.boardData };
+    const listIndex = myData.lists.findIndex((el) => el.id === listId);
+    const newCardArr = this.validateCardTitle(
+      myData,
+      this.state.inputAddNewCard
+    );
+
+    myData.lists[listIndex].cards.push(newCardArr);
+    // clean input after add
+    this.setState({ boardData: myData, inputAddNewCard: "" });
+    // save data inside storage
+    this.props.onBoardDataChange(myData);
+  }
+
+  handleChangeCard(event) {
+    const myData = { ...this.state.boardData };
+    let newVal = event.target.value;
+    if (!newVal) {
+      newVal = "Board Title";
+    }
+    const listId = parseInt(event.target.dataset.grandfather);
+    const cardId = parseInt(event.target.dataset.father);
+
+    const listIndex = parseInt(
+      myData.lists.findIndex((el) => el.id === listId)
+    );
+    const cardIndex = myData.lists[listIndex].cards.findIndex(
+      (el) => el.id === cardId
+    );
+
+    const newCardArr = this.validateCardTitle(myData, newVal, cardId);
+
+    myData.lists[listIndex].cards[cardIndex] = newCardArr;
+
+    this.setState({ boardData: myData });
+    this.props.onBoardDataChange(myData);
+  }
+
+  handleArchiveCard(event) {
+    const myData = { ...this.state.boardData };
+    const listId = parseInt(event.target.closest("div").dataset.grandfather);
+    const cardId = parseInt(event.target.closest("div").dataset.father);
+
+    const listIndex = parseInt(
+      myData.lists.findIndex((el) => el.id === listId)
+    );
+    const cardIndex = myData.lists[listIndex].cards.findIndex(
+      (el) => el.id === cardId
+    );
+
+    myData.lists[listIndex].cards.splice(cardIndex, 1);
+
+    this.setState({ boardData: myData });
+    this.props.onBoardDataChange(myData);
+  }
+
+  validateCardTitle(data, cardVal, cardId) {
+    if (!cardVal) {
+      return;
+    }
+    let cardTitle = cardVal;
+    // get index of list
+    const myCardId = cardId || parseInt( data.lists.map((x) => x.cards.length).reduce((a, b) => a + b)) + 1;
+
+    // extract hashtags
+    const tags = cardTitle
+      .split(" ")
+      .filter((v) => v.startsWith("#"))
+      .map((v) => v.replace("#", ""));
+    // remove all tags from title
+    tags.forEach((x) => {
+      cardTitle = cardTitle.replace("#" + x, "");
+    });
+
+    const newCardArr = {
+      id: myCardId,
+      title: cardTitle.trim(),
+      value: cardVal,
+      tag: tags
+    };
+
+    return newCardArr;
+  }
+
+
   render() {
     const pageStyle =
       "h-screen overflow-hidden select-none flex flex-col bg-[#0079bf]";
@@ -105,8 +203,13 @@ class BoardTemplate extends React.Component {
           onSubmitNewList={this.handleSubmitNewList}
           inputAddNewList={this.state.inputAddNewList}
           onChangeInputAddNewList={this.handleChangeInputAddNewList}
+          onSubmitNewCard={this.handleSubmitNewCard}
+          inputAddNewCard={this.state.inputAddNewCard}
+          onChangeInputAddNewCard={this.handleChangeInputAddNewCard}
           onChangeListTitle={this.handleChangeListTitle}
+          onChangeCard={this.handleChangeCard}
           onArchiveList={this.handleArchiveList}
+          onArchiveCard={this.handleArchiveCard}
         />
       </div>
     );
