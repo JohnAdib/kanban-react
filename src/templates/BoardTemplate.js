@@ -11,6 +11,8 @@ class BoardTemplate extends React.Component {
     };
 
     this.handleBoardTitleChange = this.handleBoardTitleChange.bind(this);
+
+    this.updatePageTitle();
   }
 
   handleBoardTitleChange(event) {
@@ -22,6 +24,15 @@ class BoardTemplate extends React.Component {
     myData.title = newTitle;
     this.setState({ boardData: myData });
     this.props.onBoardDataChange(myData);
+
+    this.updatePageTitle(newTitle);
+  }
+
+  updatePageTitle(newTitle) {
+    // if newTitle passed, use it because of state delay updating
+    const myTitle = newTitle ? newTitle : this.state.boardData.title;
+    // update page title
+    document.title = myTitle + " | " + this.state.boardData.brand;
   }
 
   render() {
