@@ -55,11 +55,11 @@ Pages are specific instances of templates. Here, placeholder content is replaced
 
 ## Project Requirements
 
-- [ ] A user should be able to add and label columns.
-- [ ] A user should be able to add and edit cards.
+- [x] A user should be able to add and label columns.
+- [x] A user should be able to add and edit cards.
 - [ ] A user should be able to move cards between columns - does not need to be drag-and-drop.
-- [ ] Do make sure the available interactions are intuitive. In other words, we will be considering usability.
-- [ ] - Some kind of persistency (LocalStorage or SessionStorage) is encouraged, though not required.
+- [x] Do make sure the available interactions are intuitive. In other words, we will be considering usability.
+- [x] Some kind of persistency (LocalStorage or SessionStorage) is encouraged, though not required.
 - [ ] Any additional features find important in README file about why made certain choices.
 
 ## Technology constraints

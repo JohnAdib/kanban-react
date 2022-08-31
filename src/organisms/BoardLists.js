@@ -1,12 +1,14 @@
 import React from "react"
 import FormAddAfterClick from "./../molecules/FormAddAfterClick";
 import ClickToEdit from "../molecules/ClickToEdit";
+import MoveCard from "../organisms/MoveCard";
 
 function BoardLists(props) {
   return (
     <main className='grow py-6 px-6 w-full h-full flex flex-row flex-nowrap gap-2 snap-x overflow-x-auto'>
       {listsLayout(props)}
       {elAddNewList(props)}
+      {MoveCard(props)}
     </main>
   );
 }
