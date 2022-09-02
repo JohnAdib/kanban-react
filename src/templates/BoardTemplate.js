@@ -46,7 +46,7 @@ function BoardTemplate(props) {
 
   function handleSubmitInputNewList() {
     if (!inputNewList) {
-      return;
+      throw "List title is empty";
     }
     const myData = { ...boardData };
     const newListArr = {
@@ -75,10 +75,6 @@ function BoardTemplate(props) {
   function handleSubmitInputAddNewCard(listId) {
     const myData = { ...boardData };
     const newCardObj = createNewCardObject(inputAddNewCard);
-    if (!newCardObj) {
-      return;
-    }
-
     myData.lists[getListIndexById(listId)].cards.push(newCardObj);
     setNewCard("");
     handleSaveAndUpdateData(myData);
@@ -106,7 +102,7 @@ function BoardTemplate(props) {
 
   function createNewCardObject(cardVal, cardId) {
     if (!cardVal) {
-      return;
+      throw "Card title is empty";
     }
     let cardTitle = cardVal;
     // get index of list
