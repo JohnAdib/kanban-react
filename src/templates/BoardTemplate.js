@@ -28,10 +28,6 @@ function BoardTemplate(props) {
     handleSaveAndUpdateData(myData);
   }
 
-  function handleChangeInputNewList(event) {
-    setNewList(event.target.value);
-  }
-
   function handleSubmitInputNewList(event) {
     event.preventDefault();
     const myData = { ...boardData };
@@ -64,10 +60,6 @@ function BoardTemplate(props) {
     // delete list
     myData.lists.splice(listIndex, 1);
     handleSaveAndUpdateData(myData);
-  }
-
-  function handleChangeInputAddNewCard(event) {
-    setNewCard(event.target.value);
   }
 
   function getListIndexById(listId) {
@@ -157,7 +149,7 @@ function BoardTemplate(props) {
         data={boardData.lists}
         // list - add new
         inputNewList={inputNewList}
-        onChangeInputNewList={handleChangeInputNewList}
+        onChangeInputNewList={setNewList}
         onSubmitInputNewList={handleSubmitInputNewList}
         // list - change title
         onChangeListTitle={handleChangeListTitle}
@@ -165,7 +157,7 @@ function BoardTemplate(props) {
         onArchiveList={handleArchiveList}
         // card - new new
         inputAddNewCard={inputAddNewCard}
-        onChangeInputAddNewCard={handleChangeInputAddNewCard}
+        onChangeInputAddNewCard={setNewCard}
         onSubmitInputAddNewCard={handleSubmitInputAddNewCard}
         // card - change
         onChangeCardTitle={handleChangeCardTitle}
