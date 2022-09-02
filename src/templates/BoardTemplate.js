@@ -71,7 +71,7 @@ function BoardTemplate(props) {
     setNewCard(event.target.value);
   }
 
-  function handleSubmitNewCard(event) {
+  function handleSubmitInputAddNewCard(event) {
     event.preventDefault();
     // read parent id to add card
     const listId = parseInt(event.target.dataset.list);
@@ -87,7 +87,7 @@ function BoardTemplate(props) {
     handleSaveAndUpdateData(myData);
   }
 
-  function handleChangeCard(newVal, cardId, listId) {
+  function handleChangeCardTitle(newVal, cardId, listId) {
     const myData = { ...boardData };
     const listIndex = parseInt(myData.lists.findIndex((el) => el.id === listId));
     const cardIndex = myData.lists[listIndex].cards.findIndex((el) => el.id === cardId);
@@ -159,9 +159,9 @@ function BoardTemplate(props) {
         // card - new new
         inputAddNewCard={inputAddNewCard}
         onChangeInputAddNewCard={handleChangeInputAddNewCard}
-        onSubmitNewCard={handleSubmitNewCard}
+        onSubmitInputAddNewCard={handleSubmitInputAddNewCard}
         // card - change
-        onChangeCard={handleChangeCard}
+        onChangeCardTitle={handleChangeCardTitle}
         // card - archive
         onArchiveCard={handleArchiveCard}
         // card - move

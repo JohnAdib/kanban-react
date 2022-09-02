@@ -58,7 +58,7 @@ function elCards(props, listId, card) {
           <div className="overflow-hidden text-ellipsis">
             <ClickToEdit
               value={myCards.value}
-              onChange={props.onChangeCard}
+              onChange={props.onChangeCardTitle}
               father={myCards.id}
               grandfather={listId}
               onClickArchive={props.onArchiveCard}
@@ -120,7 +120,7 @@ function elAddNewCard(props, idList) {
         btnText="Add card"
         value={props.inputAddNewCard}
         onChange={props.onChangeInputAddNewCard}
-        onSubmit={props.onSubmitNewCard}
+        onSubmit={props.onSubmitInputAddNewCard}
         theme="black"
         idList={idList}
       />
