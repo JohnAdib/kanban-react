@@ -44,7 +44,7 @@ function ClickToEdit(props) {
       <IconMove className="cursor-pointer rounded transition hover:bg-black/10 p-1 h-6 w-6" />
     </div>
   );
-  const btnMove = props.onClickMove || 1 ? btnMoveElement : "";
+  const btnMove = props.onClickMove ? btnMoveElement : "";
 
   return (
     <div className="group flex flex-row flex-nowrap relative flex-none items-center gap-1 rounded transition hover:bg-white/20 focus:bg-white/40">
@@ -52,7 +52,7 @@ function ClickToEdit(props) {
         {props.children}
       </div>
       {btnArchive}
-      {btnMoveElement}
+      {btnMove}
       <Input
         type="text"
         value={props.value}

@@ -4,7 +4,7 @@ import BoardLists from "./../organisms/BoardLists";
 
 function BoardTemplate(props) {
   const [boardData, setBoardData] = useState(props.data);
-  const [inputAddNewList, setNewList] = useState("");
+  const [inputNewList, setNewList] = useState("");
   const [inputAddNewCard, setNewCard] = useState("");
   // on start update page title
   updatePageTitle();
@@ -14,13 +14,6 @@ function BoardTemplate(props) {
     props.onBoardDataChange(data);
   }
 
-  function handleBoardTitleChange(newTitle) {
-    const myData = { ...boardData };
-    myData.title = newTitle;
-    updatePageTitle(newTitle);
-    handleSaveAndUpdateData(myData);
-  }
-
   function updatePageTitle(newTitle) {
     // if newTitle passed, use it because of state delay updating
     const myTitle = newTitle || boardData.title;
@@ -28,14 +21,21 @@ function BoardTemplate(props) {
     document.title = myTitle + " | " + boardData.brand;
   }
 
-  function handleChangeInputAddNewList(event) {
+  function handleBoardTitleChange(newTitle) {
+    const myData = { ...boardData };
+    myData.title = newTitle;
+    updatePageTitle(newTitle);
+    handleSaveAndUpdateData(myData);
+  }
+
+  function handleChangeInputNewList(event) {
     setNewList(event.target.value);
   }
 
-  function handleSubmitNewList(event) {
+  function handleSubmitInputNewList(event) {
     event.preventDefault();
     const myData = { ...boardData };
-    const newTitle = inputAddNewList;
+    const newTitle = inputNewList;
     if (!newTitle) {
       return;
     }
@@ -148,16 +148,24 @@ function BoardTemplate(props) {
       <BoardHeader data={boardData} onChangeBoardTitle={handleBoardTitleChange} />
       <BoardLists
         data={boardData.lists}
-        onSubmitNewList={handleSubmitNewList}
-        inputAddNewList={inputAddNewList}
-        onChangeInputAddNewList={handleChangeInputAddNewList}
-        onSubmitNewCard={handleSubmitNewCard}
+        // list - add new
+        inputNewList={inputNewList}
+        onChangeInputNewList={handleChangeInputNewList}
+        onSubmitInputNewList={handleSubmitInputNewList}
+        // list - change title
+        onChangeListTitle={handleChangeListTitle}
+        // list - archive
+        onArchiveList={handleArchiveList}
+        // card - new new
         inputAddNewCard={inputAddNewCard}
         onChangeInputAddNewCard={handleChangeInputAddNewCard}
-        onChangeListTitle={handleChangeListTitle}
+        onSubmitNewCard={handleSubmitNewCard}
+        // card - change
         onChangeCard={handleChangeCard}
-        onArchiveList={handleArchiveList}
+        // card - archive
         onArchiveCard={handleArchiveCard}
+        // card - move
+        // onMoveCard={handleMoveCard}
       />
     </div>
   );

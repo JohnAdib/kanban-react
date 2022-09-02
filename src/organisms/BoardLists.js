@@ -1,11 +1,11 @@
-import React from "react"
+import React from "react";
 import FormAddAfterClick from "./../molecules/FormAddAfterClick";
 import ClickToEdit from "../molecules/ClickToEdit";
 import MoveCard from "../organisms/MoveCard";
 
 function BoardLists(props) {
   return (
-    <main className='grow py-6 px-6 w-full h-full flex flex-row flex-nowrap gap-2 snap-x overflow-x-auto'>
+    <main className="grow py-6 px-6 w-full h-full flex flex-row flex-nowrap gap-2 snap-x overflow-x-auto">
       {listsLayout(props)}
       {elAddNewList(props)}
       {MoveCard(props)}
@@ -15,11 +15,8 @@ function BoardLists(props) {
 
 function listsLayout(props) {
   return props.data.map((val) => (
-    <section
-      className='snap-end shrink-0 relative basis-72 w-72 pb-2'
-      key={val.id}
-    >
-      <div className='bg-slate-100/90 rounded leading-5 text-sm'>
+    <section className="snap-end shrink-0 relative basis-72 w-72 pb-2" key={val.id}>
+      <div className="bg-slate-100/90 rounded leading-5 text-sm">
         {elListTitle(props, val.id, val.title)}
         {elCards(props, val.id, val.cards)}
         {elAddNewCard(props, val.id)}
@@ -30,8 +27,8 @@ function listsLayout(props) {
 
 function elListTitle(props, listID, listTitle) {
   return (
-    <header className='p-2 font-semibold'>
-      <div className='px-2'>
+    <header className="p-2 font-semibold">
+      <div className="px-2">
         <ClickToEdit
           value={listTitle}
           onChange={props.onChangeListTitle}
@@ -51,14 +48,14 @@ function elCards(props, listId, card) {
   }
 
   return (
-    <div className='px-2 leading-6'>
+    <div className="px-2 leading-6">
       {card.map((myCards) => (
         <div
           draggable
-          className='bg-white shadow-sm hover:shaodw-md mb-2 px-2 py-1.5 rounded transition hover:bg-white/50 cursor-pointer'
+          className="bg-white shadow-sm hover:shaodw-md mb-2 px-2 py-1.5 rounded transition hover:bg-white/50 cursor-pointer"
           key={myCards.id}
         >
-          <div className='overflow-hidden text-ellipsis'>
+          <div className="overflow-hidden text-ellipsis">
             <ClickToEdit
               value={myCards.value}
               onChange={props.onChangeCard}
@@ -97,7 +94,7 @@ function elCardDesignTags(tags) {
     "bg-rose-500"
   ];
   return (
-    <div className='leading-5 flex flex-wrap gap-1'>
+    <div className="leading-5 flex flex-wrap gap-1">
       {tags.map((myTag) => (
         <div
           className={
@@ -115,16 +112,16 @@ function elCardDesignTags(tags) {
 
 function elAddNewCard(props, idList) {
   return (
-    <footer className='px-2 pb-2'>
+    <footer className="px-2 pb-2">
       <FormAddAfterClick
-        title='Add a card'
+        title="Add a card"
         // placeholder='Enter the title for this card...'
-        placeholder='Enter title for this card #tag1'
-        btnText='Add card'
+        placeholder="Enter title for this card #tag1"
+        btnText="Add card"
         value={props.inputAddNewCard}
         onChange={props.onChangeInputAddNewCard}
         onSubmit={props.onSubmitNewCard}
-        theme='black'
+        theme="black"
         idList={idList}
       />
     </footer>
@@ -133,14 +130,14 @@ function elAddNewCard(props, idList) {
 
 function elAddNewList(props) {
   return (
-    <div className='flex-none grow-0 snap-start shrink-0a relative basis-72'>
+    <div className="flex-none grow-0 snap-start shrink-0a relative basis-72">
       <FormAddAfterClick
-        title='Add another list'
-        placeholder='Enter list title...'
-        btnText='Add List'
-        value={props.inputAddNewList}
-        onChange={props.onChangeInputAddNewList}
-        onSubmit={props.onSubmitNewList}
+        title="Add another list"
+        placeholder="Enter list title..."
+        btnText="Add List"
+        value={props.inputNewList}
+        onChange={props.onChangeInputNewList}
+        onSubmit={props.onSubmitInputNewList}
       />
     </div>
   );
