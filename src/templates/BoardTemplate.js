@@ -28,16 +28,14 @@ function BoardTemplate(props) {
     handleSaveAndUpdateData(myData);
   }
 
-  function handleSubmitInputNewList(event) {
-    event.preventDefault();
-    const myData = { ...boardData };
-    const newTitle = inputNewList;
-    if (!newTitle) {
+  function handleSubmitInputNewList() {
+    if (!inputNewList) {
       return;
     }
+    const myData = { ...boardData };
     const newListArr = {
       id: myData.lists.length + 1,
-      title: newTitle,
+      title: inputNewList,
       cards: []
     };
     myData.lists.push(newListArr);
@@ -47,7 +45,7 @@ function BoardTemplate(props) {
 
   function handleChangeListTitle(newTitle, listId) {
     const myData = { ...boardData };
-    const listIndex = myData.lists.findIndex((el) => el.id === listId);
+    const listIndex = getListIndexById(listId);
     // change title
     myData.lists[listIndex].title = newTitle;
     handleSaveAndUpdateData(myData);
@@ -55,7 +53,7 @@ function BoardTemplate(props) {
 
   function handleArchiveList(listId) {
     const myData = { ...boardData };
-    const listIndex = myData.lists.findIndex((el) => el.id === listId);
+    const listIndex = getListIndexById(listId);
 
     // delete list
     myData.lists.splice(listIndex, 1);
@@ -70,12 +68,9 @@ function BoardTemplate(props) {
     return parseInt(boardData.lists[listIndex].cards.findIndex((el) => el.id === cardId));
   }
 
-  function handleSubmitInputAddNewCard(event) {
-    event.preventDefault();
-    // read parent id to add card
-    const listId = parseInt(event.target.dataset.list);
+  function handleSubmitInputAddNewCard(listId) {
     const myData = { ...boardData };
-    const listIndex = myData.lists.findIndex((el) => el.id === listId);
+    const listIndex = getListIndexById(listId);
     const newCardArr = validateCardTitle(myData, inputAddNewCard);
     if (!newCardArr) {
       return;

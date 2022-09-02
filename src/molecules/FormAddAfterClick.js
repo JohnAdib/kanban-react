@@ -50,7 +50,14 @@ function FormAddAfterClick(props) {
         <span className="grow leading-8">{props.title}</span>
       </div>
 
-      <form className={formClass} onSubmit={props.onSubmit} data-list={props.idList}>
+      <form
+        className={formClass}
+        onSubmit={(e) => {
+          e.preventDefault();
+          const listId = parseInt(props.idList);
+          props.onSubmit(listId);
+        }}
+      >
         <Input
           type="text"
           value={props.value}
