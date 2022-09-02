@@ -19,7 +19,6 @@ function Textarea(props) {
       onKeyDown={handleKeyDown}
       onBlur={props.onBlur}
       className={textareaClass}
-      contenteditable="true"
       maxLength="500"
       ref={(input) => input && input.focus()}
     />

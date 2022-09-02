@@ -1,28 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import FormAddAfterClick from "./../molecules/FormAddAfterClick";
 import ClickToEdit from "../molecules/ClickToEdit";
 import MoveCard from "../organisms/MoveCard";
 
 function BoardLists(props) {
+  const [isModalMoveVisible, setModalMoveVisible] = useState(false);
   return (
     <main className="grow py-6 px-6 w-full h-full flex flex-row flex-nowrap gap-2 snap-x overflow-x-auto">
-      {listsLayout(props)}
+      {props.data.map((val) => (
+        <section className="snap-end shrink-0 relative basis-72 w-72 pb-2" key={val.id}>
+          <div className="bg-slate-100/90 rounded leading-5 text-sm">
+            {elListTitle(props, val.id, val.title)}
+            {elCards(props, val.id, val.cards, setModalMoveVisible)}
+            {elAddNewCard(props, val.id)}
+          </div>
+        </section>
+      ))}
       {elAddNewList(props)}
-      {MoveCard(props)}
+      {MoveCard(props, isModalMoveVisible, setModalMoveVisible)}
     </main>
   );
-}
-
-function listsLayout(props) {
-  return props.data.map((val) => (
-    <section className="snap-end shrink-0 relative basis-72 w-72 pb-2" key={val.id}>
-      <div className="bg-slate-100/90 rounded leading-5 text-sm">
-        {elListTitle(props, val.id, val.title)}
-        {elCards(props, val.id, val.cards)}
-        {elAddNewCard(props, val.id)}
-      </div>
-    </section>
-  ));
 }
 
 function elListTitle(props, listID, listTitle) {
@@ -42,7 +39,7 @@ function elListTitle(props, listID, listTitle) {
   );
 }
 
-function elCards(props, listId, card) {
+function elCards(props, listId, card, setModalMoveVisible) {
   if (!card) {
     return;
   }
@@ -62,10 +59,11 @@ function elCards(props, listId, card) {
               cardId={myCards.id}
               listId={listId}
               onClickArchive={props.onArchiveCard}
+              onClickMove={() => setModalMoveVisible(true)}
               inputType="textarea"
             >
-              {elCardDesignTags(myCards.tag)}
               {myCards.title}
+              {elCardDesignTags(myCards.tag)}
             </ClickToEdit>
           </div>
         </div>

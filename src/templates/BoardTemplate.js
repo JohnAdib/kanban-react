@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BoardHeader from "./../organisms/BoardHeader";
 import BoardLists from "./../organisms/BoardLists";
 
@@ -7,7 +7,9 @@ function BoardTemplate(props) {
   const [inputNewList, setNewList] = useState("");
   const [inputAddNewCard, setNewCard] = useState("");
   // on start update page title
-  updatePageTitle();
+  useEffect(() => {
+    document.title = boardData.title + " | " + boardData.brand;
+  });
 
   function handleSaveAndUpdateData(data) {
     setBoardData(data);
@@ -30,17 +32,9 @@ function BoardTemplate(props) {
     return parseInt(boardData.lists[listIndex].cards.findIndex((el) => el.id === cardId));
   }
 
-  function updatePageTitle(newTitle) {
-    // if newTitle passed, use it because of state delay updating
-    const myTitle = newTitle || boardData.title;
-    // update page title
-    document.title = myTitle + " | " + boardData.brand;
-  }
-
   function handleBoardTitleChange(newTitle) {
     const myData = { ...boardData };
     myData.title = newTitle;
-    updatePageTitle(newTitle);
     handleSaveAndUpdateData(myData);
   }
 
@@ -97,6 +91,16 @@ function BoardTemplate(props) {
     handleSaveAndUpdateData(myData);
   }
 
+  function handleMoveCard(cardId, oldListId, newListId) {
+    const myData = { ...boardData };
+    const oldListIndex = getListIndexById(oldListId);
+    const newListIndex = getListIndexById(newListId);
+
+    const oldCardIndex = getCardIndexById(oldListIndex, cardId);
+    myData.lists[oldListIndex].cards.splice(oldCardIndex, 1);
+    // handleSaveAndUpdateData(myData);
+  }
+
   function createNewCardObject(cardVal, cardId) {
     if (!cardVal) {
       throw "Card title is empty";
@@ -148,7 +152,7 @@ function BoardTemplate(props) {
         // card - archive
         onArchiveCard={handleArchiveCard}
         // card - move
-        // onMoveCard={handleMoveCard}
+        onMoveCard={handleMoveCard}
       />
     </div>
   );
