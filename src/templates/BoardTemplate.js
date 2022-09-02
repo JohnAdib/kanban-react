@@ -14,6 +14,22 @@ function BoardTemplate(props) {
     props.onBoardDataChange(data);
   }
 
+  function getNewCardId() {
+    return parseInt(boardData.lists.map((x) => x.cards.length).reduce((a, b) => a + b)) + 1;
+  }
+
+  function getNewListId() {
+    return parseInt(boardData.lists.length) + 1;
+  }
+
+  function getListIndexById(listId) {
+    return parseInt(boardData.lists.findIndex((el) => el.id === listId));
+  }
+
+  function getCardIndexById(listIndex, cardId) {
+    return parseInt(boardData.lists[listIndex].cards.findIndex((el) => el.id === cardId));
+  }
+
   function updatePageTitle(newTitle) {
     // if newTitle passed, use it because of state delay updating
     const myTitle = newTitle || boardData.title;
@@ -34,7 +50,7 @@ function BoardTemplate(props) {
     }
     const myData = { ...boardData };
     const newListArr = {
-      id: myData.lists.length + 1,
+      id: getNewListId(),
       title: inputNewList,
       cards: []
     };
@@ -45,38 +61,25 @@ function BoardTemplate(props) {
 
   function handleChangeListTitle(newTitle, listId) {
     const myData = { ...boardData };
-    const listIndex = getListIndexById(listId);
-    // change title
-    myData.lists[listIndex].title = newTitle;
+    myData.lists[getListIndexById(listId)].title = newTitle;
     handleSaveAndUpdateData(myData);
   }
 
   function handleArchiveList(listId) {
     const myData = { ...boardData };
-    const listIndex = getListIndexById(listId);
-
     // delete list
-    myData.lists.splice(listIndex, 1);
+    myData.lists.splice(getListIndexById(listId), 1);
     handleSaveAndUpdateData(myData);
-  }
-
-  function getListIndexById(listId) {
-    return parseInt(boardData.lists.findIndex((el) => el.id === listId));
-  }
-
-  function getCardIndexById(listIndex, cardId) {
-    return parseInt(boardData.lists[listIndex].cards.findIndex((el) => el.id === cardId));
   }
 
   function handleSubmitInputAddNewCard(listId) {
     const myData = { ...boardData };
-    const listIndex = getListIndexById(listId);
-    const newCardArr = validateCardTitle(myData, inputAddNewCard);
-    if (!newCardArr) {
+    const newCardObj = createNewCardObject(inputAddNewCard);
+    if (!newCardObj) {
       return;
     }
 
-    myData.lists[listIndex].cards.push(newCardArr);
+    myData.lists[getListIndexById(listId)].cards.push(newCardObj);
     setNewCard("");
     handleSaveAndUpdateData(myData);
   }
@@ -85,9 +88,9 @@ function BoardTemplate(props) {
     const myData = { ...boardData };
     const listIndex = getListIndexById(listId);
     const cardIndex = getCardIndexById(listIndex, cardId);
-    const newCardArr = validateCardTitle(myData, newVal, cardId);
+    const newCardObj = createNewCardObject(newVal, cardId);
 
-    myData.lists[listIndex].cards[cardIndex] = newCardArr;
+    myData.lists[listIndex].cards[cardIndex] = newCardObj;
 
     handleSaveAndUpdateData(myData);
   }
@@ -101,14 +104,13 @@ function BoardTemplate(props) {
     handleSaveAndUpdateData(myData);
   }
 
-  function validateCardTitle(data, cardVal, cardId) {
+  function createNewCardObject(cardVal, cardId) {
     if (!cardVal) {
       return;
     }
     let cardTitle = cardVal;
     // get index of list
-    const myCardId = cardId || getNewCardId(data);
-
+    const myCardId = cardId || getNewCardId();
     // extract hashtags
     const tags = cardTitle
       .split(" ")
@@ -118,19 +120,13 @@ function BoardTemplate(props) {
     tags.forEach((x) => {
       cardTitle = cardTitle.replace("#" + x, "");
     });
-
-    const newCardArr = {
+    const Obj = {
       id: myCardId,
       title: cardTitle.trim(),
       value: cardVal,
       tag: tags
     };
-
-    return newCardArr;
-  }
-
-  function getNewCardId(data) {
-    return parseInt(data.lists.map((x) => x.cards.length).reduce((a, b) => a + b)) + 1;
+    return Obj;
   }
 
   const pageStyle =
