@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Input from "../atoms/Input";
+import Textarea from "../atoms/Textarea";
 import IconArchive from "../atoms/IconArchive";
 import IconMove from "../atoms/IconMove";
 
@@ -13,7 +14,7 @@ function ClickToEdit(props) {
     setActive(false);
   };
 
-  let divClass = "overflow-hidden text-ellipsis cursor-text px-2 grow";
+  let divClass = "overflow-hidden relative text-ellipsis cursor-text px-2 grow";
   if (props.color) {
     divClass += " " + props.color;
   }
@@ -46,29 +47,54 @@ function ClickToEdit(props) {
   );
   const btnMove = props.onClickMove ? btnMoveElement : "";
 
+  const editInput = (
+    <Input
+      type="text"
+      value={props.value}
+      placeholder={props.value}
+      onChange={(e) => {
+        let newVal = e.target.value.trimStart();
+        if (!newVal) {
+          newVal = " ";
+        }
+        const listId = parseInt(props.listId);
+        const cardId = parseInt(props.cardId);
+        props.onChange(newVal, listId, cardId);
+      }}
+      onBlur={hideEditInput}
+      className={inputClass}
+    />
+  );
+
+  const editTextarea = (
+    <Textarea
+      type="text"
+      value={props.value}
+      placeholder={props.value}
+      onChange={(e) => {
+        let newVal = e.target.value.trimStart();
+        if (!newVal) {
+          newVal = " ";
+        }
+        const listId = parseInt(props.listId);
+        const cardId = parseInt(props.cardId);
+        props.onChange(newVal, listId, cardId);
+      }}
+      onBlur={hideEditInput}
+      className={inputClass}
+    />
+  );
+
+  const editInsideInputOrTextarea = props.inputType === "textarea" ? editTextarea : editInput;
+
   return (
     <div className="group flex flex-row flex-nowrap relative flex-none items-center gap-1 rounded transition hover:bg-white/20 focus:bg-white/40">
       <div className={divClass} onClick={showEditInput}>
         {props.children}
+        {editInsideInputOrTextarea}
       </div>
       {btnArchive}
       {btnMove}
-      <Input
-        type="text"
-        value={props.value}
-        placeholder={props.value}
-        onChange={(e) => {
-          let newVal = e.target.value.trimStart();
-          if (!newVal) {
-            newVal = " ";
-          }
-          const listId = parseInt(props.listId);
-          const cardId = parseInt(props.cardId);
-          props.onChange(newVal, listId, cardId);
-        }}
-        onBlur={hideEditInput}
-        className={inputClass}
-      />
     </div>
   );
 }

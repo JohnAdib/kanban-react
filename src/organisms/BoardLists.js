@@ -62,6 +62,7 @@ function elCards(props, listId, card) {
               cardId={myCards.id}
               listId={listId}
               onClickArchive={props.onArchiveCard}
+              inputType="textarea"
             >
               {elCardDesignTags(myCards.tag)}
               {myCards.title}
@@ -94,7 +95,7 @@ function elCardDesignTags(tags) {
     "bg-rose-500"
   ];
   return (
-    <div className="leading-5 flex flex-wrap gap-1">
+    <div className="leading-6 flex flex-wrap gap-1">
       {tags.map((myTag) => (
         <div
           className={

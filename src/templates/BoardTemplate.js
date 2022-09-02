@@ -85,9 +85,7 @@ function BoardTemplate(props) {
     const listIndex = getListIndexById(listId);
     const cardIndex = getCardIndexById(listIndex, cardId);
     const newCardObj = createNewCardObject(newVal, cardId);
-
     myData.lists[listIndex].cards[cardIndex] = newCardObj;
-
     handleSaveAndUpdateData(myData);
   }
 
@@ -95,7 +93,6 @@ function BoardTemplate(props) {
     const myData = { ...boardData };
     const listIndex = getListIndexById(listId);
     const cardIndex = getCardIndexById(listIndex, cardId);
-
     myData.lists[listIndex].cards.splice(cardIndex, 1);
     handleSaveAndUpdateData(myData);
   }
