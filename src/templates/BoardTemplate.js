@@ -9,13 +9,10 @@ function BoardTemplate(props) {
 
   updatePageTitle();
 
-  function handleBoardTitleChange(event) {
+  function handleBoardTitleChange(newTitle) {
     const myData = { ...boardData };
-    let newTitle = event.target.value;
-    if (!newTitle) {
-      newTitle = "Board Title";
-    }
     myData.title = newTitle;
+    // save data
     setBoardData(myData);
     props.onBoardDataChange(myData);
 
@@ -51,13 +48,8 @@ function BoardTemplate(props) {
     props.onBoardDataChange(myData);
   }
 
-  function handleChangeListTitle(event) {
+  function handleChangeListTitle(newTitle, listId) {
     const myData = { ...boardData };
-    let newTitle = event.target.value;
-    if (!newTitle) {
-      newTitle = "List Title";
-    }
-    const listId = parseInt(event.target.dataset.father);
     const listIndex = myData.lists.findIndex((el) => el.id === listId);
     // change title
     myData.lists[listIndex].title = newTitle;
@@ -101,18 +93,10 @@ function BoardTemplate(props) {
     props.onBoardDataChange(myData);
   }
 
-  function handleChangeCard(event) {
+  function handleChangeCard(newVal, cardId, listId) {
     const myData = { ...boardData };
-    let newVal = event.target.value;
-    if (!newVal) {
-      newVal = "#";
-    }
-    const listId = parseInt(event.target.dataset.grandfather);
-    const cardId = parseInt(event.target.dataset.father);
-
     const listIndex = parseInt(myData.lists.findIndex((el) => el.id === listId));
     const cardIndex = myData.lists[listIndex].cards.findIndex((el) => el.id === cardId);
-
     const newCardArr = validateCardTitle(myData, newVal, cardId);
 
     myData.lists[listIndex].cards[cardIndex] = newCardArr;
