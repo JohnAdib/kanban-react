@@ -70,6 +70,14 @@ function BoardTemplate(props) {
     setNewCard(event.target.value);
   }
 
+  function getListIndexById(listId) {
+    return parseInt(boardData.lists.findIndex((el) => el.id === listId));
+  }
+
+  function getCardIndexById(listIndex, cardId) {
+    return parseInt(boardData.lists[listIndex].cards.findIndex((el) => el.id === cardId));
+  }
+
   function handleSubmitInputAddNewCard(event) {
     event.preventDefault();
     // read parent id to add card
@@ -88,8 +96,8 @@ function BoardTemplate(props) {
 
   function handleChangeCardTitle(newVal, listId, cardId) {
     const myData = { ...boardData };
-    const listIndex = parseInt(myData.lists.findIndex((el) => el.id === listId));
-    const cardIndex = myData.lists[listIndex].cards.findIndex((el) => el.id === cardId);
+    const listIndex = getListIndexById(listId);
+    const cardIndex = getCardIndexById(listIndex, cardId);
     const newCardArr = validateCardTitle(myData, newVal, cardId);
 
     myData.lists[listIndex].cards[cardIndex] = newCardArr;
@@ -99,8 +107,8 @@ function BoardTemplate(props) {
 
   function handleArchiveCard(listId, cardId) {
     const myData = { ...boardData };
-    const listIndex = parseInt(myData.lists.findIndex((el) => el.id === listId));
-    const cardIndex = myData.lists[listIndex].cards.findIndex((el) => el.id === cardId);
+    const listIndex = getListIndexById(listId);
+    const cardIndex = getCardIndexById(listIndex, cardId);
 
     myData.lists[listIndex].cards.splice(cardIndex, 1);
     handleSaveAndUpdateData(myData);
@@ -112,8 +120,7 @@ function BoardTemplate(props) {
     }
     let cardTitle = cardVal;
     // get index of list
-    const myCardId =
-      cardId || parseInt(data.lists.map((x) => x.cards.length).reduce((a, b) => a + b)) + 1;
+    const myCardId = cardId || getNewCardId(data);
 
     // extract hashtags
     const tags = cardTitle
@@ -133,6 +140,10 @@ function BoardTemplate(props) {
     };
 
     return newCardArr;
+  }
+
+  function getNewCardId(data) {
+    return parseInt(data.lists.map((x) => x.cards.length).reduce((a, b) => a + b)) + 1;
   }
 
   const pageStyle =
