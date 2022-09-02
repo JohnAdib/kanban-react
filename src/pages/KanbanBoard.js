@@ -1,10 +1,9 @@
 import React from "react";
-import { data } from "./data.js";
+import { SampleData } from "./SampleData.js";
 import Storage from "../tools/Storage";
 import BoardTemplate from "../templates/BoardTemplate";
 
-function KanbanBoard (props) {
-
+function KanbanBoard(props) {
   function getData() {
     const storage = new Storage();
     const myData = storage.get("boardData");
@@ -17,8 +16,8 @@ function KanbanBoard (props) {
   }
 
   function nullData() {
-    setData(data);
-    return data;
+    setData(SampleData);
+    return SampleData;
   }
 
   function setData(data) {
@@ -30,12 +29,7 @@ function KanbanBoard (props) {
     storage.set("boardData", data);
   }
 
-  return (
-    <BoardTemplate
-      data={getData()}
-      onBoardDataChange={(i) => setData(i)}
-    />
-  );
+  return <BoardTemplate data={getData()} onBoardDataChange={(i) => setData(i)} />;
 }
 
 export default KanbanBoard;

@@ -1,4 +1,4 @@
-export const data = {
+export const SampleData = {
   id: "1",
   title: "Project Management",
   brand: "MrAdib",
@@ -15,10 +15,9 @@ export const data = {
       cards: [
         {
           id: 0,
-          title: "Plan marketing campain",
-          value: "Plan marketing campain #Marketing",
-          description:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+          title: "Plan marketing campaign",
+          value: "Plan marketing campaign #Marketing",
+          description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
           tag: ["Marketing"]
         },
         {
@@ -55,8 +54,7 @@ export const data = {
           id: 4,
           title: "Create 10 T-shirt options for launch day",
           value: "Create 10 T-shirt options for launch day #Production #Design",
-          description:
-            "Contrary to popular belief, Lorem Ipsum is not simply random text.",
+          description: "Contrary to popular belief, Lorem Ipsum is not simply random text.",
           tag: ["Production", "Design"]
         },
         {
@@ -83,8 +81,8 @@ export const data = {
         },
         {
           id: 7,
-          title: "Custormer survey",
-          value: "Custormer survey #External #Marketing",
+          title: "Customer survey",
+          value: "Customer survey #External #Marketing",
           description:
             "This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, comes from a line in section 1.10.32.",
           tag: ["External", "Marketing"]
