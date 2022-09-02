@@ -6,17 +6,19 @@ function BoardTemplate(props) {
   const [boardData, setBoardData] = useState(props.data);
   const [inputAddNewList, setNewList] = useState("");
   const [inputAddNewCard, setNewCard] = useState("");
-
+  // on start update page title
   updatePageTitle();
+
+  function handleSaveAndUpdateData(data) {
+    setBoardData(data);
+    props.onBoardDataChange(data);
+  }
 
   function handleBoardTitleChange(newTitle) {
     const myData = { ...boardData };
     myData.title = newTitle;
-    // save data
-    setBoardData(myData);
-    props.onBoardDataChange(myData);
-
     updatePageTitle(newTitle);
+    handleSaveAndUpdateData(myData);
   }
 
   function updatePageTitle(newTitle) {
@@ -43,9 +45,8 @@ function BoardTemplate(props) {
       cards: []
     };
     myData.lists.push(newListArr);
-    setBoardData(myData);
     setNewList("");
-    props.onBoardDataChange(myData);
+    handleSaveAndUpdateData(myData);
   }
 
   function handleChangeListTitle(newTitle, listId) {
@@ -53,9 +54,7 @@ function BoardTemplate(props) {
     const listIndex = myData.lists.findIndex((el) => el.id === listId);
     // change title
     myData.lists[listIndex].title = newTitle;
-
-    setBoardData(myData);
-    props.onBoardDataChange(myData);
+    handleSaveAndUpdateData(myData);
   }
 
   function handleArchiveList(event) {
@@ -65,9 +64,7 @@ function BoardTemplate(props) {
 
     // delete list
     myData.lists.splice(listIndex, 1);
-
-    setBoardData(myData);
-    props.onBoardDataChange(myData);
+    handleSaveAndUpdateData(myData);
   }
 
   function handleChangeInputAddNewCard(event) {
@@ -86,11 +83,8 @@ function BoardTemplate(props) {
     }
 
     myData.lists[listIndex].cards.push(newCardArr);
-    // clean input after add
-    setBoardData(myData);
     setNewCard("");
-    // save data inside storage
-    props.onBoardDataChange(myData);
+    handleSaveAndUpdateData(myData);
   }
 
   function handleChangeCard(newVal, cardId, listId) {
@@ -101,8 +95,7 @@ function BoardTemplate(props) {
 
     myData.lists[listIndex].cards[cardIndex] = newCardArr;
 
-    setBoardData(myData);
-    props.onBoardDataChange(myData);
+    handleSaveAndUpdateData(myData);
   }
 
   function handleArchiveCard(event) {
@@ -114,9 +107,7 @@ function BoardTemplate(props) {
     const cardIndex = myData.lists[listIndex].cards.findIndex((el) => el.id === cardId);
 
     myData.lists[listIndex].cards.splice(cardIndex, 1);
-
-    setBoardData(myData);
-    props.onBoardDataChange(myData);
+    handleSaveAndUpdateData(myData);
   }
 
   function validateCardTitle(data, cardVal, cardId) {
