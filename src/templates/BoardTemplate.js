@@ -57,9 +57,8 @@ function BoardTemplate(props) {
     handleSaveAndUpdateData(myData);
   }
 
-  function handleArchiveList(event) {
+  function handleArchiveList(listId) {
     const myData = { ...boardData };
-    const listId = parseInt(event.target.closest("div").dataset.father);
     const listIndex = myData.lists.findIndex((el) => el.id === listId);
 
     // delete list
@@ -87,7 +86,7 @@ function BoardTemplate(props) {
     handleSaveAndUpdateData(myData);
   }
 
-  function handleChangeCardTitle(newVal, cardId, listId) {
+  function handleChangeCardTitle(newVal, listId, cardId) {
     const myData = { ...boardData };
     const listIndex = parseInt(myData.lists.findIndex((el) => el.id === listId));
     const cardIndex = myData.lists[listIndex].cards.findIndex((el) => el.id === cardId);
@@ -98,11 +97,8 @@ function BoardTemplate(props) {
     handleSaveAndUpdateData(myData);
   }
 
-  function handleArchiveCard(event) {
+  function handleArchiveCard(listId, cardId) {
     const myData = { ...boardData };
-    const listId = parseInt(event.target.closest("div").dataset.grandfather);
-    const cardId = parseInt(event.target.closest("div").dataset.father);
-
     const listIndex = parseInt(myData.lists.findIndex((el) => el.id === listId));
     const cardIndex = myData.lists[listIndex].cards.findIndex((el) => el.id === cardId);
 

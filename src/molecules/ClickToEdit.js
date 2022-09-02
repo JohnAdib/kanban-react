@@ -25,9 +25,11 @@ function ClickToEdit(props) {
   const btnArchiverElement = (
     <div
       className="archiveBtn flex-none transition invisible group-hover:visible"
-      data-father={props.father}
-      data-grandfather={props.grandfather}
-      onClick={props.onClickArchive}
+      onClick={() => {
+        const listId = parseInt(props.listId);
+        const cardId = parseInt(props.cardId);
+        props.onClickArchive(listId, cardId);
+      }}
     >
       <IconArchive className="cursor-pointer rounded transition hover:bg-black/10 p-1 h-6 w-6" />
     </div>
@@ -37,8 +39,6 @@ function ClickToEdit(props) {
   const btnMoveElement = (
     <div
       className="archiveBtn flex-none transition invisible group-hover:visible"
-      data-father={props.father}
-      data-grandfather={props.grandfather}
       onClick={props.onClickMove}
     >
       <IconMove className="cursor-pointer rounded transition hover:bg-black/10 p-1 h-6 w-6" />
@@ -62,14 +62,12 @@ function ClickToEdit(props) {
           if (!newVal) {
             newVal = " ";
           }
-          const cardId = parseInt(props.father);
-          const listId = parseInt(props.grandfather);
-          props.onChange(newVal, cardId, listId);
+          const listId = parseInt(props.listId);
+          const cardId = parseInt(props.cardId);
+          props.onChange(newVal, listId, cardId);
         }}
         onBlur={hideEditInput}
         className={inputClass}
-        father={props.father}
-        grandfather={props.grandfather}
       />
     </div>
   );

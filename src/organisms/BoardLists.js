@@ -33,7 +33,7 @@ function elListTitle(props, listID, listTitle) {
           value={listTitle}
           onChange={props.onChangeListTitle}
           onClickArchive={props.onArchiveList}
-          father={listID}
+          listId={listID}
         >
           {listTitle}
         </ClickToEdit>
@@ -59,8 +59,8 @@ function elCards(props, listId, card) {
             <ClickToEdit
               value={myCards.value}
               onChange={props.onChangeCardTitle}
-              father={myCards.id}
-              grandfather={listId}
+              cardId={myCards.id}
+              listId={listId}
               onClickArchive={props.onArchiveCard}
             >
               {elCardDesignTags(myCards.tag)}

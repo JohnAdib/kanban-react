@@ -1,8 +1,7 @@
-import React from "react"
+import React from "react";
 
 function Input(props) {
-  const inputClass =
-    "text-black outline-2 outline-blue-600 rounded px-2 " + props.className;
+  const inputClass = "text-black outline-2 outline-blue-600 rounded px-2 " + props.className;
 
   return (
     <input
@@ -12,9 +11,7 @@ function Input(props) {
       onChange={props.onChange}
       onBlur={props.onBlur}
       className={inputClass}
-      maxLength='200'
-      data-father={props.father}
-      data-grandfather={props.grandfather}
+      maxLength="200"
       ref={(input) => input && input.focus()}
     />
   );
