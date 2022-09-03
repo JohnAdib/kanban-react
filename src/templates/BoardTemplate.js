@@ -91,14 +91,15 @@ function BoardTemplate(props) {
     handleSaveAndUpdateData(myData);
   }
 
-  function handleMoveCard(cardId, oldListId, newListId) {
+  function handleMoveCard(cardId, oldListId, newListId, newPositionIndex) {
+    console.log("transfer card");
     const myData = { ...boardData };
-    const oldListIndex = getListIndexById(oldListId);
-    const newListIndex = getListIndexById(newListId);
-
+    const oldListIndex = getListIndexById(parseInt(oldListId));
+    const newListIndex = getListIndexById(parseInt(newListId));
     const oldCardIndex = getCardIndexById(oldListIndex, cardId);
-    myData.lists[oldListIndex].cards.splice(oldCardIndex, 1);
-    // handleSaveAndUpdateData(myData);
+    const myCard = myData.lists[oldListIndex].cards.splice(oldCardIndex, 1)[0];
+    myData.lists[newListIndex].cards.splice(newPositionIndex, 0, myCard);
+    handleSaveAndUpdateData(myData);
   }
 
   function createNewCardObject(cardVal, cardId) {

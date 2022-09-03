@@ -1,13 +1,13 @@
-import React from "react"
+import React from "react";
 
 function Select(props) {
   if (!props.options) {
     return;
   }
 
-  const options = props.options.map((x) => (
-    <option key={x} value={x}>
-      {x}
+  const options = props.options.map((v) => (
+    <option key={v.key} value={v.key}>
+      {v.value}
     </option>
   ));
 
@@ -17,6 +17,7 @@ function Select(props) {
       className={props.className}
       onClick={props.onClick}
       onChange={props.onChange}
+      value={props.selected}
     >
       {options}
     </select>
