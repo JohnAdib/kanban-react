@@ -41,6 +41,9 @@ function BoardLists(props) {
             draggable
             className="bg-white shadow-sm hover:shaodw-md mb-2 px-2 py-1.5 rounded transition hover:bg-white/50 cursor-pointer"
             key={myCards.id}
+            onDragStart={() => {
+              showMoviModalAndFillData(myCards);
+            }}
           >
             <div className="overflow-hidden text-ellipsis">
               <ClickToEdit
@@ -50,13 +53,7 @@ function BoardLists(props) {
                 listId={listId}
                 onClickArchive={props.onArchiveCard}
                 onClickMove={() => {
-                  setModalMoveVisible(true);
-                  setMoveCardId(myCards.id);
-                  setMoveCardTitle(myCards.value);
-                  setMoveCardListId(listId);
-                  setMoveCardListTitle(listTitle);
-                  setMoveCardNewList(listId);
-                  // @TODO: set postition of selected card
+                  showMoviModalAndFillData(myCards);
                 }}
                 inputType="textarea"
               >
@@ -68,6 +65,16 @@ function BoardLists(props) {
         ))}
       </div>
     );
+
+    function showMoviModalAndFillData(myCards) {
+      setModalMoveVisible(true);
+      setMoveCardId(myCards.id);
+      setMoveCardTitle(myCards.value);
+      setMoveCardListId(listId);
+      setMoveCardListTitle(listTitle);
+      setMoveCardNewList(listId);
+      // @TODO: set postition of selected card
+    }
   }
 
   function elCardDesignTags(tags) {

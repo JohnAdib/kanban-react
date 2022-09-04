@@ -92,7 +92,6 @@ function BoardTemplate(props) {
   }
 
   function handleMoveCard(cardId, oldListId, newListId, newPositionIndex) {
-    console.log("transfer card");
     const myData = { ...boardData };
     const oldListIndex = getListIndexById(parseInt(oldListId));
     const newListIndex = getListIndexById(parseInt(newListId));
