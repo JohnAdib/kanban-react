@@ -25,13 +25,29 @@ function MoveCard(
   }
 
   function getListPositionsById(_listId) {
-    const myPosKeys = Object.keys(props.data[getListIndex(moveCardNewList)].cards);
-    return myPosKeys.map((v) => ({ key: v, value: v }));
-    // @TODO: add one more position for end of list
-    // use for instead of map
+    const visibleCards = props.data[getListIndex(moveCardNewList)].cards;
+    const maxItem = visibleCards.length + 1;
+    let newAvailPositions = [];
+    let positionIndex = 0;
+    for (let index = 0; index < maxItem; index++) {
+      if (visibleCards[index] && visibleCards[index].archive === true) {
+        continue;
+      }
+      let optionTxt = positionIndex;
+      if (positionIndex === 0) {
+        optionTxt = "0 (First item)";
+      } else if (index === maxItem - 1) {
+        optionTxt = positionIndex + " (Last item)";
+      }
+      newAvailPositions.push({ key: index, value: optionTxt });
+      positionIndex++;
+    }
+    return newAvailPositions;
   }
 
-  const myLists = props.data.map(({ id, title }) => ({ key: id, value: title }));
+  const myLists = props.data
+    .filter((v) => v.archive !== true)
+    .map(({ id, title }) => ({ key: id, value: title }));
   const myPositions = getListPositionsById(moveCardNewList);
 
   let modalClass =

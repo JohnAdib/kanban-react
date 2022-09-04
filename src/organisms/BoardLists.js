@@ -36,33 +36,38 @@ function BoardLists(props) {
 
     return (
       <div className="px-2 leading-6">
-        {cards.map((myCards) => (
-          <div
-            draggable
-            className="bg-white shadow-sm hover:shaodw-md mb-2 px-2 py-1.5 rounded transition hover:bg-white/50 cursor-pointer"
-            key={myCards.id}
-            onDragStart={() => {
-              showMoviModalAndFillData(myCards);
-            }}
-          >
-            <div className="overflow-hidden text-ellipsis">
-              <ClickToEdit
-                value={myCards.value}
-                onChange={props.onChangeCardTitle}
-                cardId={myCards.id}
-                listId={listId}
-                onClickArchive={props.onArchiveCard}
-                onClickMove={() => {
-                  showMoviModalAndFillData(myCards);
-                }}
-                inputType="textarea"
-              >
-                {myCards.title}
-                {elCardDesignTags(myCards.tag)}
-              </ClickToEdit>
+        {cards.map((myCards) => {
+          if (myCards.archive === true) {
+            return;
+          }
+          return (
+            <div
+              draggable
+              className="bg-white shadow-sm hover:shaodw-md mb-2 px-2 py-1.5 rounded transition hover:bg-white/50 cursor-pointer"
+              key={myCards.id}
+              onDragStart={() => {
+                showMoviModalAndFillData(myCards);
+              }}
+            >
+              <div className="overflow-hidden text-ellipsis">
+                <ClickToEdit
+                  value={myCards.value}
+                  onChange={props.onChangeCardTitle}
+                  cardId={myCards.id}
+                  listId={listId}
+                  onClickArchive={props.onArchiveCard}
+                  onClickMove={() => {
+                    showMoviModalAndFillData(myCards);
+                  }}
+                  inputType="textarea"
+                >
+                  {myCards.title}
+                  {elCardDesignTags(myCards.tag)}
+                </ClickToEdit>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     );
 
@@ -163,15 +168,20 @@ function BoardLists(props) {
 
   return (
     <main className="grow py-6 px-6 w-full h-full flex flex-row flex-nowrap gap-2 snap-x overflow-x-auto">
-      {props.data.map((val) => (
-        <section className="snap-end shrink-0 relative basis-72 w-72 pb-2" key={val.id}>
-          <div className="bg-slate-100/90 rounded leading-5 text-sm">
-            {elListTitle(props, val.id, val.title)}
-            {elCards(props, val.id, val.title, val.cards, setModalMoveVisible)}
-            {elAddNewCard(props, val.id)}
-          </div>
-        </section>
-      ))}
+      {props.data.map((val) => {
+        if (val.archive === true) {
+          return;
+        }
+        return (
+          <section className="snap-end shrink-0 relative basis-72 w-72 pb-2" key={val.id}>
+            <div className="bg-slate-100/90 rounded leading-5 text-sm">
+              {elListTitle(props, val.id, val.title)}
+              {elCards(props, val.id, val.title, val.cards, setModalMoveVisible)}
+              {elAddNewCard(props, val.id)}
+            </div>
+          </section>
+        );
+      })}
       {elAddNewList(props)}
       {moveCardModal}
     </main>

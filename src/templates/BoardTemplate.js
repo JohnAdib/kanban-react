@@ -62,7 +62,9 @@ function BoardTemplate(props) {
   function handleArchiveList(listId) {
     const myData = { ...boardData };
     // delete list
-    myData.lists.splice(getListIndexById(listId), 1);
+    // myData.lists.splice(getListIndexById(listId), 1);
+    // archive list
+    myData.lists[getListIndexById(listId)].archive = true;
     handleSaveAndUpdateData(myData);
   }
 
@@ -87,7 +89,10 @@ function BoardTemplate(props) {
     const myData = { ...boardData };
     const listIndex = getListIndexById(listId);
     const cardIndex = getCardIndexById(listIndex, cardId);
-    myData.lists[listIndex].cards.splice(cardIndex, 1);
+    // delete card
+    // myData.lists[listIndex].cards.splice(cardIndex, 1);
+    // archive list
+    myData.lists[listIndex].cards[cardIndex].archive = true;
     handleSaveAndUpdateData(myData);
   }
 
