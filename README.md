@@ -57,10 +57,10 @@ Pages are specific instances of templates. Here, placeholder content is replaced
 
 - [x] A user should be able to add and label columns.
 - [x] A user should be able to add and edit cards.
-- [ ] A user should be able to move cards between columns - does not need to be drag-and-drop.
+- [x] A user should be able to move cards between columns - does not need to be drag-and-drop.
 - [x] Do make sure the available interactions are intuitive. In other words, we will be considering usability.
 - [x] Some kind of persistency (LocalStorage or SessionStorage) is encouraged, though not required.
-- [ ] Any additional features find important in README file about why made certain choices.
+- [x] Any additional features find important in README file about why made certain choices.
 
 ## Technology constraints
 
@@ -71,17 +71,31 @@ Pages are specific instances of templates. Here, placeholder content is replaced
 
 ## Roadmap - becoming a real app
 
-...
+- Writing tests for every component and test for Storybook
+- Writing Cypress test
+- Assign a color to each tag and avoid random color assignment to each tag
+- Login page and user profile
+- Exchange and storage of information on the server
+- Ability to open each card to add more details such as description, deadline, etc
+- Moving cards using drag and drop
 
 ## Available Scripts
 
-After Clone a Github repository or download. In the project directory, you can run
+### Installation Guide
+
+Open terminal and run below commmands
+
+`git clone https://github.com/MrJavadAdib/kanban-react.git`
+
+`cd kanban-react`
+
+`npm install`
+
+Now wait to download packages, then you can start with below command
 
 ### `npm start`
 
 Runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes. You may also see any lint errors in the console.
 
 ### `npm test`
 
